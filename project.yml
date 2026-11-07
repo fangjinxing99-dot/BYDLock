@@ -1,0 +1,44 @@
+name: BYDLock
+
+options:
+  bundleIdPrefix: com.yb
+  deploymentTarget:
+    iOS: "15.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+  xcodeVersion: "15.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    CODE_SIGN_IDENTITY: ""
+    CODE_SIGNING_REQUIRED: "NO"
+    CODE_SIGNING_ALLOWED: "NO"
+    ENABLE_BITCODE: "NO"
+
+targets:
+  BYDLock:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: BYDLock
+        excludes:
+          - "Info.plist"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yb.bydlock
+        PRODUCT_NAME: BYDLock
+        INFOPLIST_FILE: BYDLock/Info.plist
+        CODE_SIGN_IDENTITY: ""
+        CODE_SIGNING_REQUIRED: "NO"
+        CODE_SIGNING_ALLOWED: "NO"
+        GENERATE_INFOPLIST_FILE: "NO"
+        ENABLE_BITCODE: "NO"
+        SWIFT_OPTIMIZATION_LEVEL: "-O"
+        SWIFT_VERSION: "5.0"
+        ARCHS: "arm64"
+        VALID_ARCHS: "arm64"
+        ONLY_ACTIVE_ARCH: "NO"
