@@ -80,7 +80,7 @@ struct ContentView: View {
     private var thresholdSection: some View {
         Section(
             header: Text("Thresholds"),
-            footer: Text("Below lock threshold long enough → lock. Above unlock threshold → unlock. Between them is the hysteresis zone.")
+            footer: Text("Below lock threshold long enough -> lock. Above unlock threshold -> unlock. Between them is the hysteresis zone.")
         ) {
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
@@ -90,10 +90,10 @@ struct ContentView: View {
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.red)
                 }
-                Slider(value: $lockRSSI, in: -100 ... -40, step: 1) { _ in
-                } onEditingChanged: { _ in
-                    LockEngine.shared.lockRSSI = Int(lockRSSI)
-                }
+                Slider(value: $lockRSSI, in: -100 ... -40, step: 1)
+                    .onChange(of: lockRSSI) { newValue in
+                        LockEngine.shared.lockRSSI = Int(newValue)
+                    }
             }
 
             VStack(alignment: .leading, spacing: 6) {
@@ -104,10 +104,10 @@ struct ContentView: View {
                         .font(.system(.body, design: .monospaced))
                         .foregroundColor(.green)
                 }
-                Slider(value: $unlockRSSI, in: -100 ... -40, step: 1) { _ in
-                } onEditingChanged: { _ in
-                    LockEngine.shared.unlockRSSI = Int(unlockRSSI)
-                }
+                Slider(value: $unlockRSSI, in: -100 ... -40, step: 1)
+                    .onChange(of: unlockRSSI) { newValue in
+                        LockEngine.shared.unlockRSSI = Int(newValue)
+                    }
             }
         }
     }
@@ -125,10 +125,10 @@ struct ContentView: View {
                     Spacer()
                     Text("\(Int(lockHold)) s").foregroundColor(.secondary)
                 }
-                Slider(value: $lockHold, in: 3 ... 60, step: 1) { _ in
-                } onEditingChanged: { _ in
-                    LockEngine.shared.lockHold = lockHold
-                }
+                Slider(value: $lockHold, in: 3 ... 60, step: 1)
+                    .onChange(of: lockHold) { newValue in
+                        LockEngine.shared.lockHold = newValue
+                    }
             }
 
             VStack(alignment: .leading, spacing: 6) {
@@ -137,10 +137,10 @@ struct ContentView: View {
                     Spacer()
                     Text(String(format: "%.1f s", unlockHold)).foregroundColor(.secondary)
                 }
-                Slider(value: $unlockHold, in: 0.5 ... 10, step: 0.5) { _ in
-                } onEditingChanged: { _ in
-                    LockEngine.shared.unlockHold = unlockHold
-                }
+                Slider(value: $unlockHold, in: 0.5 ... 10, step: 0.5)
+                    .onChange(of: unlockHold) { newValue in
+                        LockEngine.shared.unlockHold = newValue
+                    }
             }
 
             Toggle("Engine enabled", isOn: $engineOn)
@@ -166,8 +166,8 @@ struct ContentView: View {
 
     private var logSection: some View {
         Section(header: Text("Log")) {
-            ForEach(Array(ble.logs.prefix(60).enumerated()), id: \.offset) { _, line in
-                Text(line)
+            ForEach(Array(ble.logs.prefix(60).enumerated()), id: \.offset) { item in
+                Text(item.element)
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(.secondary)
             }
