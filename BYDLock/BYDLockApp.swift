@@ -18,7 +18,7 @@ struct BYDLockApp: App {
             case .active:
                 BleManager.shared.start()
             case .background:
-                // 进入后台时保持 BLE 连接（靠 bluetooth-central 后台模式）
+                // 进入后台时靠 bluetooth-central 后台模式维持 BLE 连接
                 break
             default:
                 break
@@ -28,7 +28,7 @@ struct BYDLockApp: App {
 }
 
 /// 用 beginBackgroundTask 尽量延长后台存活，配合 bluetooth-central 效果更好
-final class BackgroundHold {
+final class BackgroundHold: ObservableObject {
     private var taskId: UIBackgroundTaskIdentifier = .invalid
 
     func begin() {
